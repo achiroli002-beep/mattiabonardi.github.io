@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <!-- PLACEHOLDER: aggiorna title e description col nome reale dello psicologo -->
+  <title>Dott. [Nome Cognome] — Psicologo | [Città]</title>
+  <meta name="description" content="Psicologo a [Città]. Percorsi individuali e di coppia per ansia, depressione, relazioni e crescita personale. Sedute in studio e online." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mattiabonardi.github.io/" />
+  <!-- PLACEHOLDER: aggiorna og:title, og:description e og:image -->
+  <meta property="og:title" content="Dott. [Nome Cognome] — Psicologo" />
+  <meta property="og:description" content="Percorsi psicologici individuali e di coppia a [Città] e online." />
+  <meta property="og:image" content="assets/img/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dott. [Nome Cognome] — Psicologo" />
+  <meta name="twitter:description" content="Percorsi psicologici individuali e di coppia a [Città] e online." />
+  <meta name="twitter:image" content="assets/img/og-image.jpg" />
+
+  <!-- PLACEHOLDER: sostituisci favicon con file reali in assets/img/ -->
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg" />
+
+  <!-- Google Fonts: Fraunces (serif titoli) + Inter (corpo testo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Schema.org structured data -->
+  <!-- PLACEHOLDER: riempi con dati reali (nome, indirizzo, telefono, URL) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Physician",
+    "name": "Dott. [Nome Cognome]",
+    "description": "Psicologo a [Città], percorsi individuali e di coppia.",
+    "url": "https://mattiabonardi.github.io/",
+    "telephone": "[NUMERO]",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "[Via e numero]",
+      "addressLocality": "[Città]",
+      "postalCode": "[CAP]",
+      "addressCountry": "IT"
+    },
+    "medicalSpecialty": "Psychiatry",
+    "image": "assets/img/og-image.jpg"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SKIP LINK — accessibilità tastiera
+  ════════════════════════════════════════════════ -->
+  <a class="skip-link" href="#main-content">Vai al contenuto principale</a>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGAZIONE STICKY
+  ════════════════════════════════════════════════ -->
+  <header class="site-header" role="banner">
+    <nav class="nav-inner" aria-label="Navigazione principale">
+      <!-- PLACEHOLDER: sostituisci con il nome/logo reale dello psicologo -->
+      <a href="#hero" class="nav-logo" aria-label="Torna in cima">
+        Dott. <span>[Nome]</span>
+      </a>
+
+      <!-- Hamburger (visibile solo su mobile) -->
+      <button
+        class="nav-hamburger"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        aria-label="Apri menu di navigazione"
+      >
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <ul id="nav-menu" class="nav-links" role="list">
+        <li><a href="#chi-sono">Chi sono</a></li>
+        <li><a href="#metodo">Il mio metodo</a></li>
+        <li><a href="#dove">Dove lavoro</a></li>
+        <li><a href="#risorse">Risorse</a></li>
+        <li><a href="#prenota" class="nav-cta">Prenota</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       CONTENUTO PRINCIPALE
+  ════════════════════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- ─── 1. HERO ─────────────────────────────── -->
+    <section id="hero" class="section-hero" aria-labelledby="hero-heading">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <!-- PLACEHOLDER: frase di apertura dello psicologo -->
+          <p class="hero-eyebrow">Psicologo | [Città] &amp; Online</p>
+          <h1 id="hero-heading" class="hero-headline">
+            Uno spazio<br />
+            per ritrovarsi.
+          </h1>
+          <!-- PLACEHOLDER: sottotitolo/tagline -->
+          <p class="hero-sub">
+            Percorsi individuali e di coppia pensati per aiutarti a comprendere te stesso, alleggerire il peso e costruire una vita più autentica.
+          </p>
+          <a href="#prenota" class="btn btn-primary">Inizia il percorso</a>
+        </div>
+
+        <div class="hero-portrait">
+          <!-- PLACEHOLDER: sostituisci src con la foto reale dello psicologo -->
+          <div class="portrait-frame">
+            <img
+              src="assets/img/portrait.jpg"
+              alt="Ritratto del Dott. [Nome Cognome], psicologo"
+              width="480"
+              height="600"
+              loading="eager"
+              class="portrait-img"
+            />
+            <!-- Fallback se la foto non è ancora disponibile -->
+            <div class="portrait-placeholder" aria-hidden="true">
+              <span>Foto</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Freccia scroll -->
+      <a href="#mind-map" class="scroll-hint" aria-label="Scorri verso il basso">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </section>
+
+    <!-- ─── 2. SEZIONE INTERATTIVA MENTE/ANIMA ─── -->
+    <section
+      id="mind-map"
+      class="section-mind"
+      aria-labelledby="mind-heading"
+    >
+      <div class="mind-inner">
+        <header class="section-header">
+          <h2 id="mind-heading" class="section-title">Di cosa mi occupo</h2>
+          <p class="section-subtitle">
+            Clicca su una delle aree per saperne di più.
+          </p>
+        </header>
+
+        <!-- Contenitore orbita (desktop) / griglia (mobile / reduced-motion) -->
+        <div class="mind-stage" id="mind-stage" role="region" aria-label="Mappa delle condizioni trattate">
+
+          <!-- SVG decorativo — neuroni / mente / anima ─────────────────
+               aria-hidden: è puramente decorativo.
+               Le animazioni CSS (respiro) si annullano con reduced-motion.
+          ──────────────────────────────────────────────────────────────── -->
+          <svg
+            class="mind-svg"
+            id="mind-svg"
+            viewBox="0 0 300 300"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <!-- Connessioni tra nodi -->
+            <g class="svg-connections" stroke="var(--color-primary)" stroke-width="0.8" opacity="0.4">
+              <line x1="150" y1="150" x2="90"  y2="80" />
+              <line x1="150" y1="150" x2="210" y2="75" />
+              <line x1="150" y1="150" x2="240" y2="155" />
+              <line x1="150" y1="150" x2="195" y2="230" />
+              <line x1="150" y1="150" x2="100" y2="225" />
+              <line x1="150" y1="150" x2="60"  y2="155" />
+              <!-- Connessioni secondarie tra nodi periferici -->
+              <line x1="90"  y1="80"  x2="210" y2="75"  opacity="0.25"/>
+              <line x1="210" y1="75"  x2="240" y2="155" opacity="0.25"/>
+              <line x1="240" y1="155" x2="195" y2="230" opacity="0.25"/>
+              <line x1="195" y1="230" x2="100" y2="225" opacity="0.25"/>
+              <line x1="100" y1="225" x2="60"  y2="155" opacity="0.25"/>
+              <line x1="60"  y1="155" x2="90"  y2="80"  opacity="0.25"/>
+            </g>
+
+            <!-- Nodi periferici -->
+            <g class="svg-nodes">
+              <circle cx="90"  cy="80"  r="5" fill="var(--color-primary)" opacity="0.6"/>
+              <circle cx="210" cy="75"  r="4" fill="var(--color-primary)" opacity="0.5"/>
+              <circle cx="240" cy="155" r="5" fill="var(--color-primary)" opacity="0.65"/>
+              <circle cx="195" cy="230" r="4" fill="var(--color-primary)" opacity="0.5"/>
+              <circle cx="100" cy="225" r="5" fill="var(--color-primary)" opacity="0.6"/>
+              <circle cx="60"  cy="155" r="4" fill="var(--color-accent)"  opacity="0.5"/>
+              <!-- Nodi secondari piccoli -->
+              <circle cx="130" cy="55"  r="2.5" fill="var(--color-accent)" opacity="0.4"/>
+              <circle cx="265" cy="110" r="2"   fill="var(--color-primary)" opacity="0.35"/>
+              <circle cx="250" cy="205" r="2.5" fill="var(--color-accent)" opacity="0.4"/>
+              <circle cx="45"  cy="200" r="2"   fill="var(--color-primary)" opacity="0.35"/>
+              <circle cx="50"  cy="100" r="2.5" fill="var(--color-accent)" opacity="0.4"/>
+            </g>
+
+            <!-- Nodo centrale — glow + respiro -->
+            <g class="svg-center-glow">
+              <circle cx="150" cy="150" r="32" fill="var(--color-primary)" opacity="0.08" class="glow-outer"/>
+              <circle cx="150" cy="150" r="22" fill="var(--color-primary)" opacity="0.12" class="glow-mid"/>
+            </g>
+            <circle cx="150" cy="150" r="12" fill="var(--color-primary)" opacity="0.7" class="svg-center-node"/>
+            <circle cx="150" cy="150" r="5"  fill="var(--color-bg)" class="svg-center-dot"/>
+          </svg>
+
+          <!-- Pulsanti condizioni (posizionati in JS su desktop) -->
+          <!-- PLACEHOLDER: sostituisci con condizioni reali e descrizioni nel file js/main.js -->
+          <div class="conditions-orbit" id="conditions-orbit" aria-label="Condizioni trattate">
+            <!-- I pulsanti vengono iniettati da JS (funzione buildConditionButtons) -->
+          </div>
+
+          <!-- Popover per descrizione condizione -->
+          <div
+            class="condition-popover"
+            id="condition-popover"
+            role="dialog"
+            aria-modal="false"
+            aria-labelledby="popover-title"
+            aria-hidden="true"
+            tabindex="-1"
+          >
+            <button class="popover-close" id="popover-close" aria-label="Chiudi">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <h3 id="popover-title" class="popover-title"><!-- JS --></h3>
+            <p id="popover-body" class="popover-body"><!-- JS --></p>
+          </div>
+        </div>
+
+        <!-- Fallback statico: sempre visibile, lista di tutte le condizioni -->
+        <div class="conditions-fallback" id="conditions-fallback" aria-label="Tutte le condizioni trattate">
+          <h3 class="fallback-title">Tutte le aree di intervento</h3>
+          <ul class="fallback-list" id="fallback-list" role="list">
+            <!-- JS inietta voci <li> qui -->
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── 3. CHI SONO ──────────────────────────── -->
+    <section id="chi-sono" class="section-bio section-alt" aria-labelledby="bio-heading">
+      <div class="content-inner">
+        <header class="section-header">
+          <h2 id="bio-heading" class="section-title">Chi sono</h2>
+        </header>
+        <div class="bio-grid">
+          <div class="bio-text js-reveal">
+            <!-- PLACEHOLDER: biografia dello psicologo -->
+            <p>
+              Sono il Dott. [Nome Cognome], psicologo iscritto all'Ordine degli Psicologi di [Regione] (n. [000]). Mi sono laureato in Psicologia presso l'Università di [Ateneo] e ho conseguito la specializzazione in [orientamento] presso [Istituto].
+            </p>
+            <p>
+              Nel mio lavoro credo che ogni persona porti in sé le risorse per cambiare. Il mio compito è aiutarti a trovarle, in un clima di ascolto senza giudizio.
+            </p>
+            <!-- PLACEHOLDER: formazione, esperienze significative, valori -->
+            <ul class="bio-credentials">
+              <li>[Laurea magistrale in Psicologia — Università di X, Anno]</li>
+              <li>[Specializzazione / Master — Istituto Y, Anno]</li>
+              <li>[Altra formazione rilevante]</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 4. IL MIO METODO ─────────────────────── -->
+    <section id="metodo" class="section-method" aria-labelledby="method-heading">
+      <div class="content-inner">
+        <header class="section-header">
+          <h2 id="method-heading" class="section-title">Il mio metodo</h2>
+          <!-- PLACEHOLDER: breve intro all'approccio -->
+          <p class="section-subtitle">
+            Utilizzo un approccio integrato, fondato sull'evidenza scientifica e sull'incontro autentico con la persona.
+          </p>
+        </header>
+
+        <div class="method-cards">
+          <!-- PLACEHOLDER: sostituisci con le pillars reali del metodo -->
+          <div class="method-card js-reveal">
+            <div class="method-card-icon" aria-hidden="true">
+              <!-- Icona SVG: ascolto -->
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="14" stroke="var(--color-primary)" stroke-width="1.5"/>
+                <path d="M10 14c0-3.3 2.7-6 6-6s6 2.7 6 6v4a3 3 0 01-6 0" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M16 24v3" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="method-card-title">[Pilastro 1 — es. Ascolto profondo]</h3>
+            <p class="method-card-body">
+              <!-- PLACEHOLDER -->
+              Descrizione breve del primo pilastro dell'approccio terapeutico. Cosa significa nella pratica, come si traduce nelle sedute.
+            </p>
+          </div>
+
+          <div class="method-card js-reveal">
+            <div class="method-card-icon" aria-hidden="true">
+              <!-- Icona SVG: integrazione -->
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="14" stroke="var(--color-primary)" stroke-width="1.5"/>
+                <path d="M16 8v8l5 5" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="method-card-title">[Pilastro 2 — es. Integrazione]</h3>
+            <p class="method-card-body">
+              <!-- PLACEHOLDER -->
+              Descrizione breve del secondo pilastro. Puoi descriere l'orientamento teorico (es. cognitivo-comportamentale, psicodinamico, sistemico, ecc.).
+            </p>
+          </div>
+
+          <div class="method-card js-reveal">
+            <div class="method-card-icon" aria-hidden="true">
+              <!-- Icona SVG: crescita -->
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="14" stroke="var(--color-primary)" stroke-width="1.5"/>
+                <path d="M10 22c1-4 4-7 6-14 2 7 5 10 6 14" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="method-card-title">[Pilastro 3 — es. Crescita personale]</h3>
+            <p class="method-card-body">
+              <!-- PLACEHOLDER -->
+              Descrizione breve del terzo pilastro. Quali obiettivi si raggiungono, cosa cambia concretamente per la persona.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 5. DOVE LAVORO ───────────────────────── -->
+    <section id="dove" class="section-locations section-alt" aria-labelledby="locations-heading">
+      <div class="content-inner">
+        <header class="section-header">
+          <h2 id="locations-heading" class="section-title">Dove lavoro</h2>
+        </header>
+        <div class="locations-grid">
+
+          <div class="location-card js-reveal">
+            <div class="location-card-icon" aria-hidden="true">
+              <!-- Icona edificio/studio -->
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <rect x="4" y="10" width="20" height="14" rx="1.5" stroke="var(--color-primary)" stroke-width="1.4"/>
+                <path d="M10 24V17h8v7" stroke="var(--color-primary)" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M4 10l10-7 10 7" stroke="var(--color-primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <!-- PLACEHOLDER: studio fisico -->
+            <h3 class="location-card-title">Studio di [Città]</h3>
+            <p class="location-card-body">
+              Via [Nome Via], [numero]<br />
+              [CAP] [Città]<br />
+              <!-- PLACEHOLDER: orari -->
+              Lunedì – Venerdì: [orari]
+            </p>
+          </div>
+
+          <div class="location-card js-reveal">
+            <div class="location-card-icon" aria-hidden="true">
+              <!-- Icona video/online -->
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                <rect x="3" y="7" width="18" height="14" rx="2" stroke="var(--color-primary)" stroke-width="1.4"/>
+                <path d="M21 11l4-3v12l-4-3" stroke="var(--color-primary)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="location-card-title">Sedute online</h3>
+            <p class="location-card-body">
+              Colloqui a distanza in video-chiamata su piattaforma sicura.<br />
+              <!-- PLACEHOLDER: piattaforma e orari disponibili online -->
+              Disponibile su [piattaforma]. Orari: [orari].
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 6. RISORSE ───────────────────────────── -->
+    <section id="risorse" class="section-resources" aria-labelledby="resources-heading">
+      <div class="content-inner">
+        <header class="section-header">
+          <h2 id="resources-heading" class="section-title">Risorse</h2>
+          <!-- PLACEHOLDER: breve intro -->
+          <p class="section-subtitle">Articoli, riflessioni e materiali utili per il tuo benessere.</p>
+        </header>
+
+        <div class="resources-grid">
+          <!-- PLACEHOLDER: sostituisci con articoli/risorse reali -->
+          <article class="resource-card js-reveal">
+            <span class="resource-tag">Articolo</span>
+            <h3 class="resource-card-title">
+              <a href="#" class="resource-link">[Titolo articolo 1]</a>
+            </h3>
+            <p class="resource-card-body">
+              Breve descrizione del contenuto dell'articolo o risorsa. Due o tre righe che ne spiegano il valore.
+            </p>
+          </article>
+
+          <article class="resource-card js-reveal">
+            <span class="resource-tag">Riflessione</span>
+            <h3 class="resource-card-title">
+              <a href="#" class="resource-link">[Titolo articolo 2]</a>
+            </h3>
+            <p class="resource-card-body">
+              Breve descrizione del contenuto dell'articolo o risorsa. Due o tre righe che ne spiegano il valore.
+            </p>
+          </article>
+
+          <article class="resource-card js-reveal">
+            <span class="resource-tag">Download</span>
+            <h3 class="resource-card-title">
+              <a href="#" class="resource-link" download>[Titolo PDF / risorsa scaricabile]</a>
+            </h3>
+            <p class="resource-card-body">
+              Descrizione breve della risorsa scaricabile (es. esercizi di rilassamento, scheda informativa).
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 7. PRENOTA ───────────────────────────── -->
+    <section id="prenota" class="section-book section-alt" aria-labelledby="book-heading">
+      <div class="content-inner content-inner--narrow">
+        <header class="section-header">
+          <h2 id="book-heading" class="section-title">Prenota</h2>
+          <!-- PLACEHOLDER: testo introduttivo alla prenotazione -->
+          <p class="section-subtitle">
+            Fai il primo passo. Compila il modulo e ti risponderò entro 48 ore.
+          </p>
+        </header>
+
+        <!-- TODO: integrazione prenotazione (form / calendario) — fornita dall'utente -->
+        <!--
+          AREA DI PRENOTAZIONE
+          ──────────────────────────────────────────────────────────────────────
+          Opzioni possibili quando l'utente fornirà la soluzione:
+            a) Form HTML con invio via servizio esterno (es. Formspree, EmailJS)
+            b) Widget calendario (es. Calendly embed)
+            c) Form personalizzato con fetch() verso API esterna
+          ──────────────────────────────────────────────────────────────────────
+        -->
+        <div class="book-placeholder">
+          <p class="book-placeholder-text">
+            <strong>Area prenotazione in arrivo.</strong><br />
+            Puoi contattarmi direttamente via email o telefono nel frattempo.
+          </p>
+          <!-- PLACEHOLDER: contatti diretti provvisori -->
+          <div class="book-contacts">
+            <a href="mailto:email@esempio.it" class="btn btn-primary">
+              Scrivimi un'email
+            </a>
+            <a href="tel:+390000000000" class="btn btn-outline">
+              Chiamami
+            </a>
+          </div>
+
+          <!--
+            CHECKBOX CONSENSO PRIVACY (da abilitare quando il form è presente)
+            ───────────────────────────────────────────────────────────────────
+            <div class="form-group form-group--checkbox">
+              <input type="checkbox" id="privacy-consent" name="privacy" required />
+              <label for="privacy-consent">
+                Ho letto l'<a href="#privacy">Informativa privacy</a> e acconsento
+                al trattamento dei miei dati personali.
+              </label>
+            </div>
+          -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <!-- PLACEHOLDER: nome e iscrizione ordine -->
+        <p class="footer-name">Dott. [Nome Cognome]</p>
+        <p class="footer-credentials">Psicologo — Iscritto all'Ordine degli Psicologi di [Regione] n. [000]</p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Link di piè di pagina">
+        <ul role="list">
+          <li><a href="#chi-sono">Chi sono</a></li>
+          <li><a href="#metodo">Metodo</a></li>
+          <li><a href="#dove">Dove lavoro</a></li>
+          <li><a href="#risorse">Risorse</a></li>
+          <li><a href="#prenota">Prenota</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-legal">
+        <!-- PLACEHOLDER: contatti reali -->
+        <p>
+          <a href="mailto:email@esempio.it">email@esempio.it</a> ·
+          <a href="tel:+390000000000">+39 000 0000000</a>
+        </p>
+        <!-- TODO: privacy / GDPR — fornita dall'utente -->
+        <p>
+          <a href="#" id="privacy-link">Informativa privacy</a>
+          <!-- TODO: sostituire href="#" con il link/ID della pagina/sezione privacy -->
+        </p>
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Dott. [Nome Cognome]. Tutti i diritti riservati.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" type="module"></script>
+</body>
+</html>
