@@ -685,39 +685,117 @@ section {
   color: var(--color-text-muted);
 }
 
-/* ─── 9. METODO ───────────────────────────────────────────────────── */
-.method-cards {
+/* ─── 9. METODO — timeline scroll-driven ──────────────────────────── */
+
+/* Larghezza contenuto ridotta per dare respiro alla timeline */
+.section-method .content-inner { max-width: 820px; }
+
+/* Contenitore principale */
+.timeline {
+  position: relative;
+  padding: var(--space-sm) 0 var(--space-lg);
+}
+
+/* Linea grigia di sfondo (binario) */
+.timeline-track {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border);
+  pointer-events: none;
+}
+
+/* Riempimento colorato — height animata da JS in base allo scroll */
+.timeline-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--color-primary);
+  will-change: height;
+}
+
+/* Singola tappa — griglia 3 colonne: [contenuto | nodo | spazio] o viceversa */
+.timeline-step {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-md);
+  grid-template-columns: 1fr 20px 1fr;
+  gap: 0 var(--space-xl);
+  margin-bottom: var(--space-2xl);
+  align-items: start;
+}
+.timeline-step:last-child { margin-bottom: 0; }
+
+/* Nodo (pallino) sulla linea */
+.timeline-node {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  justify-self: center;
+  margin-top: 5px; /* allinea col cap x del titolo */
+  position: relative;
+  z-index: 1;
+  transition: background var(--transition-base), border-color var(--transition-base),
+              transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.5s ease;
+  flex-shrink: 0;
 }
 
-.method-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-md) var(--space-md) var(--space-lg);
-  transition: box-shadow var(--transition-base), transform var(--transition-base);
-}
-.method-card:hover {
-  box-shadow: var(--shadow-card);
-  transform: translateY(-2px);
+/* Nodo attivo — pop con spring */
+.timeline-step.active .timeline-node {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: scale(1.5);
+  box-shadow: 0 0 0 5px rgba(139, 105, 20, 0.12);
 }
 
-.method-card-icon {
-  margin-bottom: var(--space-sm);
+/* Blocco testo — invisibile e offset di default */
+.timeline-content {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.method-card-title {
-  font-size: var(--text-lg);
+/* Step a sinistra: testo allineato a destra, slide da sinistra */
+.timeline-step--left .timeline-content {
+  text-align: right;
+  transform: translateX(-22px);
+}
+
+/* Step a destra: testo allineato a sinistra, slide da destra */
+.timeline-step--right .timeline-content {
+  text-align: left;
+  transform: translateX(22px);
+}
+
+/* Testo visibile quando lo step è attivo */
+.timeline-step.active .timeline-content {
+  opacity: 1;
+  transform: none;
+}
+
+.timeline-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  color: var(--color-primary-deep);
   margin-bottom: var(--space-xs);
+  line-height: var(--leading-snug);
 }
 
-.method-card-body {
+.timeline-text {
   color: var(--color-text-muted);
   font-size: var(--text-sm);
   line-height: var(--leading-base);
+  max-width: 100%;
 }
+
+/* Spacer — occupa lo spazio vuoto sul lato opposto al testo */
+.timeline-spacer { /* placeholder di griglia, nessuno stile */ }
 
 /* ─── 10. DOVE LAVORO ────────────────────────────────────────────── */
 .locations-grid {
@@ -968,6 +1046,13 @@ section {
 
   /* Stage diventa auto height */
   .mind-stage { height: auto !important; }
+
+  /* Timeline: tutto visibile subito, nessuna animazione */
+  .timeline-content {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .timeline-fill { height: 100% !important; }
 }
 
 /* ─── 16. MEDIA QUERIES ──────────────────────────────────────────── */
@@ -1068,6 +1153,31 @@ section {
 
   .condition-popover[aria-hidden="false"] {
     transform: translateY(0);
+  }
+
+  /* Timeline — layout a linea laterale sinistra su mobile */
+  .timeline-track {
+    left: 10px;
+    transform: none;
+  }
+
+  .timeline-step {
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  /* Nasconde lo spacer vuoto */
+  .timeline-spacer { display: none; }
+
+  /* Nodo sempre come primo elemento */
+  .timeline-node { order: -1; }
+
+  /* Contenuto sempre a destra, slide da destra per tutti */
+  .timeline-step--left .timeline-content,
+  .timeline-step--right .timeline-content {
+    text-align: left;
+    transform: translateX(16px);
   }
 
   /* Footer: colonna singola */

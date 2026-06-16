@@ -279,59 +279,65 @@
       <div class="content-inner">
         <header class="section-header">
           <h2 id="method-heading" class="section-title">Il mio metodo</h2>
-          <!-- PLACEHOLDER: breve intro all'approccio -->
-          <p class="section-subtitle">
-            Utilizzo un approccio integrato, fondato sull'evidenza scientifica e sull'incontro autentico con la persona.
-          </p>
+          <p class="section-subtitle">Un percorso in quattro tappe, costruito attorno a te.</p>
         </header>
 
-        <div class="method-cards">
-          <!-- PLACEHOLDER: sostituisci con le pillars reali del metodo -->
-          <div class="method-card js-reveal">
-            <div class="method-card-icon" aria-hidden="true">
-              <!-- Icona SVG: ascolto -->
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="14" stroke="var(--color-primary)" stroke-width="1.5"/>
-                <path d="M10 14c0-3.3 2.7-6 6-6s6 2.7 6 6v4a3 3 0 01-6 0" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M16 24v3" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="method-card-title">[Pilastro 1 — es. Ascolto profondo]</h3>
-            <p class="method-card-body">
-              <!-- PLACEHOLDER -->
-              Descrizione breve del primo pilastro dell'approccio terapeutico. Cosa significa nella pratica, come si traduce nelle sedute.
-            </p>
+        <!--
+          TIMELINE
+          ──────────────────────────────────────────────────────────────
+          .timeline-track  → linea grigia verticale (sfondo)
+          #timeline-fill   → riempimento colorato, altezza animata da JS
+          .timeline-step   → singola tappa; JS aggiunge .active allo scroll
+          .timeline-step--left  → contenuto a sinistra del nodo (desktop)
+          .timeline-step--right → contenuto a destra del nodo (desktop)
+          Su mobile il layout collassa: linea a sinistra, testo a destra.
+        -->
+        <div class="timeline" id="method-timeline">
+
+          <div class="timeline-track" aria-hidden="true">
+            <div class="timeline-fill" id="timeline-fill"></div>
           </div>
 
-          <div class="method-card js-reveal">
-            <div class="method-card-icon" aria-hidden="true">
-              <!-- Icona SVG: integrazione -->
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="14" stroke="var(--color-primary)" stroke-width="1.5"/>
-                <path d="M16 8v8l5 5" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+          <!-- Tappa 1 — sinistra -->
+          <div class="timeline-step timeline-step--left js-timeline-step">
+            <div class="timeline-content">
+              <h3 class="timeline-title">Il Primo Contatto</h3>
+              <p class="timeline-text">Una chiacchierata per conoscerci, capire la tua richiesta e valutare se sono il professionista giusto per te.</p>
             </div>
-            <h3 class="method-card-title">[Pilastro 2 — es. Integrazione]</h3>
-            <p class="method-card-body">
-              <!-- PLACEHOLDER -->
-              Descrizione breve del secondo pilastro. Puoi descriere l'orientamento teorico (es. cognitivo-comportamentale, psicodinamico, sistemico, ecc.).
-            </p>
+            <div class="timeline-node" aria-hidden="true"></div>
+            <div class="timeline-spacer" aria-hidden="true"></div>
           </div>
 
-          <div class="method-card js-reveal">
-            <div class="method-card-icon" aria-hidden="true">
-              <!-- Icona SVG: crescita -->
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="14" stroke="var(--color-primary)" stroke-width="1.5"/>
-                <path d="M10 22c1-4 4-7 6-14 2 7 5 10 6 14" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+          <!-- Tappa 2 — destra -->
+          <div class="timeline-step timeline-step--right js-timeline-step">
+            <div class="timeline-spacer" aria-hidden="true"></div>
+            <div class="timeline-node" aria-hidden="true"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">La Fase di Valutazione</h3>
+              <p class="timeline-text">Esploriamo insieme la tua storia e definiamo chiaramente quali sono gli obiettivi che vogliamo raggiungere.</p>
             </div>
-            <h3 class="method-card-title">[Pilastro 3 — es. Crescita personale]</h3>
-            <p class="method-card-body">
-              <!-- PLACEHOLDER -->
-              Descrizione breve del terzo pilastro. Quali obiettivi si raggiungono, cosa cambia concretamente per la persona.
-            </p>
           </div>
+
+          <!-- Tappa 3 — sinistra -->
+          <div class="timeline-step timeline-step--left js-timeline-step">
+            <div class="timeline-content">
+              <h3 class="timeline-title">Il Percorso</h3>
+              <p class="timeline-text">Lavoriamo attivamente sui blocchi e sui pensieri con ascolto e strumenti pratici da usare nella vita di tutti i giorni.</p>
+            </div>
+            <div class="timeline-node" aria-hidden="true"></div>
+            <div class="timeline-spacer" aria-hidden="true"></div>
+          </div>
+
+          <!-- Tappa 4 — destra -->
+          <div class="timeline-step timeline-step--right js-timeline-step">
+            <div class="timeline-spacer" aria-hidden="true"></div>
+            <div class="timeline-node" aria-hidden="true"></div>
+            <div class="timeline-content">
+              <h3 class="timeline-title">Autonomia</h3>
+              <p class="timeline-text">Il mio scopo è darti gli strumenti per camminare con le tue gambe e affrontare il futuro con nuove risorse.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

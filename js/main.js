@@ -429,7 +429,84 @@ function initMindSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   5. ANNO FOOTER
+   5. TIMELINE METODO — scroll-driven
+   ─────────────────────────────────────────────────────────────────
+   La linea (#timeline-fill) si riempie man mano che l'utente scrolla
+   attraverso la sezione. Quando la fill raggiunge il nodo di una tappa,
+   quella tappa riceve la classe .active → pop del nodo + fade-in testo.
+═══════════════════════════════════════════════════════════════════ */
+function initMethodTimeline() {
+  const timeline = document.getElementById('method-timeline');
+  const fill     = document.getElementById('timeline-fill');
+  const track    = timeline?.querySelector('.timeline-track');
+  const steps    = Array.from(timeline?.querySelectorAll('.js-timeline-step') ?? []);
+
+  if (!timeline || !fill || !track || !steps.length) return;
+
+  /* Reduced motion: mostra tutto immediatamente */
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    fill.style.height = '100%';
+    steps.forEach(s => s.classList.add('active'));
+    return;
+  }
+
+  /*
+   * nodeRatios[i] = posizione del centro del nodo i rispetto alla height
+   * del track, come valore 0–1.
+   * La differenza (nodeRect.top - trackRect.top) è costante al variare
+   * dello scroll (i due elementi si muovono insieme), quindi i valori
+   * calcolati una volta sono validi per sempre fino al resize.
+   */
+  let nodeRatios = [];
+
+  function cacheRatios() {
+    const trackRect = track.getBoundingClientRect();
+    const h = trackRect.height || 1;
+    nodeRatios = steps.map(step => {
+      const node = step.querySelector('.timeline-node');
+      const nr   = node.getBoundingClientRect();
+      return Math.max(0.02, Math.min(0.98, (nr.top + nr.height / 2 - trackRect.top) / h));
+    });
+  }
+
+  /* Due rAF per aspettare che il layout (font, img) sia stabile */
+  requestAnimationFrame(() => requestAnimationFrame(cacheRatios));
+
+  /* Ricalcola su resize (debounced) */
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(cacheRatios, 150);
+  }, { passive: true });
+
+  function update() {
+    const rect = timeline.getBoundingClientRect();
+    const vh   = window.innerHeight;
+
+    /*
+     * Progresso 0 → 1:
+     *   0 quando il top della sezione è all'90% della viewport (inizia ad entrare)
+     *   1 quando il bottom è al 10% della viewport (sta per uscire)
+     */
+    const totalRange = rect.height + vh * 0.8;
+    const scrolled   = vh * 0.9 - rect.top;
+    const progress   = Math.max(0, Math.min(1, scrolled / totalRange));
+
+    fill.style.height = `${progress * 100}%`;
+
+    /* Attiva ogni step quando la linea raggiunge il suo nodo */
+    steps.forEach((step, i) => {
+      const threshold = nodeRatios[i] ?? (i + 1) / (steps.length + 1);
+      step.classList.toggle('active', progress >= threshold);
+    });
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update(); /* calcolo iniziale */
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. ANNO FOOTER
 ═══════════════════════════════════════════════════════════════════ */
 function initFooterYear() {
   const el = document.getElementById('footer-year');
@@ -444,5 +521,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initPortraitFallback();
   initScrollReveal();
   initMindSection();
+  initMethodTimeline();
   initFooterYear();
 });
