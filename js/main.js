@@ -19,52 +19,52 @@
 ═══════════════════════════════════════════════════════════════════ */
 const CONDITIONS = [
   {
-    id: ‘clinica’,
-    label: ‘Psicologia clinica’,
+    id: 'clinica',
+    label: 'Psicologia clinica',
     description:
-      ‘Percorsi individuali per ansia, depressione e difficoltà emotivo-relazionali. Un accompagnamento professionale per ritrovare equilibrio e benessere.’,
+      'Percorsi individuali per ansia, depressione e difficoltà emotivo-relazionali. Un accompagnamento professionale per ritrovare equilibrio e benessere.',
   },
   {
-    id: ‘coppia-famiglia’,
-    label: ‘Coppia e famiglia’,
+    id: 'coppia-famiglia',
+    label: 'Coppia e famiglia',
     description:
-      ‘Consulenza per situazioni di crisi relazionale, difficoltà comunicative di coppia o dinamiche familiari complesse.’,
+      'Consulenza per situazioni di crisi relazionale, difficoltà comunicative di coppia o dinamiche familiari complesse.',
   },
   {
-    id: ‘sport’,
-    label: ‘Psicologia dello sport’,
+    id: 'sport',
+    label: 'Psicologia dello sport',
     description:
-      ‘Supporto a società sportive, staff tecnico e atleti per migliorare la performance, gestire la pressione agonistica e affrontare infortuni o momenti di crisi.’,
+      'Supporto a società sportive, staff tecnico e atleti per migliorare la performance, gestire la pressione agonistica e affrontare infortuni o momenti di crisi.',
   },
   {
-    id: ‘mental-training’,
-    label: ‘Mental Training’,
+    id: 'mental-training',
+    label: 'Mental Training',
     description:
-      "Percorsi strutturati di allenamento mentale per atleti singoli e squadre: concentrazione, gestione dell’errore, visualizzazione e Human Performance.",
+      "Percorsi strutturati di allenamento mentale per atleti singoli e squadre: concentrazione, gestione dell'errore, visualizzazione e Human Performance.",
   },
   {
-    id: ‘caregiver’,
-    label: ‘Caregiver e fragilità’,
+    id: 'caregiver',
+    label: 'Caregiver e fragilità',
     description:
-      ‘Supporto a chi si prende cura di persone fragili: famiglie, caregiver informali e operatori del sociale e della disabilità.’,
+      'Supporto a chi si prende cura di persone fragili: famiglie, caregiver informali e operatori del sociale e della disabilità.',
   },
   {
-    id: ‘gruppi’,
-    label: ‘Gruppi e organizzazioni’,
+    id: 'gruppi',
+    label: 'Gruppi e organizzazioni',
     description:
-      ‘Consulenza e supervisione per équipe di lavoro. Esperienza nelle dinamiche gruppali istituzionali e nella conduzione di gruppi terapeutici e formativi.’,
+      'Consulenza e supervisione per équipe di lavoro. Esperienza nelle dinamiche gruppali istituzionali e nella conduzione di gruppi terapeutici e formativi.',
   },
   {
-    id: ‘training-autogeno’,
-    label: ‘Training Autogeno’,
+    id: 'training-autogeno',
+    label: 'Training Autogeno',
     description:
-      "Tecnica di rilassamento profondo che insegna a gestire stress, tensione e ansia attraverso l’auto-ipnosi. Percorsi individuali e di gruppo.",
+      "Tecnica di rilassamento profondo che insegna a gestire stress, tensione e ansia attraverso l'auto-ipnosi. Percorsi individuali e di gruppo.",
   },
   {
-    id: ‘crescita’,
-    label: ‘Crescita personale’,
+    id: 'crescita',
+    label: 'Crescita personale',
     description:
-      ‘Per chi vuole comprendersi meglio, rafforzare le proprie risorse e costruire una vita più consapevole, anche in assenza di un disagio conclamato.’,
+      'Per chi vuole comprendersi meglio, rafforzare le proprie risorse e costruire una vita più consapevole, anche in assenza di un disagio conclamato.',
   },
 ];
 
