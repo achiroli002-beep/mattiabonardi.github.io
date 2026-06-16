@@ -19,52 +19,52 @@
 ═══════════════════════════════════════════════════════════════════ */
 const CONDITIONS = [
   {
-    id: 'ansia',
-    label: 'Ansia e preoccupazione',
+    id: ‘clinica’,
+    label: ‘Psicologia clinica’,
     description:
-      'Preoccupazione eccessiva, tensione cronica, attacchi di panico. Lavoriamo insieme per riconoscere i pattern e ritrovare una sensazione di sicurezza interiore.',
+      ‘Percorsi individuali per ansia, depressione e difficoltà emotivo-relazionali. Un accompagnamento professionale per ritrovare equilibrio e benessere.’,
   },
   {
-    id: 'depressione',
-    label: 'Depressione',
+    id: ‘coppia-famiglia’,
+    label: ‘Coppia e famiglia’,
     description:
-      'Tristezza persistente, mancanza di energia o motivazione, senso di vuoto. Il percorso aiuta a riscoprire risorse sopite e a riconnettersi con ciò che conta.',
+      ‘Consulenza per situazioni di crisi relazionale, difficoltà comunicative di coppia o dinamiche familiari complesse.’,
   },
   {
-    id: 'relazioni',
-    label: 'Difficoltà relazionali',
+    id: ‘sport’,
+    label: ‘Psicologia dello sport’,
     description:
-      'Conflitti di coppia, difficoltà di comunicazione, rotture. Lo spazio terapeutico permette di capire i propri schemi e costruire legami più autentici.',
+      ‘Supporto a società sportive, staff tecnico e atleti per migliorare la performance, gestire la pressione agonistica e affrontare infortuni o momenti di crisi.’,
   },
   {
-    id: 'autostima',
-    label: 'Autostima e identità',
+    id: ‘mental-training’,
+    label: ‘Mental Training’,
     description:
-      'Senso di inadeguatezza, critica interiore, incertezza su chi si è. Lavoriamo per rafforzare il rapporto con se stessi e con i propri valori.',
+      "Percorsi strutturati di allenamento mentale per atleti singoli e squadre: concentrazione, gestione dell’errore, visualizzazione e Human Performance.",
   },
   {
-    id: 'stress',
-    label: 'Stress e burnout',
+    id: ‘caregiver’,
+    label: ‘Caregiver e fragilità’,
     description:
-      'Sovraccarico lavorativo o familiare, esaurimento, difficoltà a "staccare". Costruiamo strategie concrete per recuperare equilibrio e confini.',
+      ‘Supporto a chi si prende cura di persone fragili: famiglie, caregiver informali e operatori del sociale e della disabilità.’,
   },
   {
-    id: 'lutto',
-    label: 'Lutto e perdita',
+    id: ‘gruppi’,
+    label: ‘Gruppi e organizzazioni’,
     description:
-      'Elaborare la perdita di una persona cara, di una relazione o di una parte di sé. Un accompagnamento rispettoso dei tempi di ciascuno.',
+      ‘Consulenza e supervisione per équipe di lavoro. Esperienza nelle dinamiche gruppali istituzionali e nella conduzione di gruppi terapeutici e formativi.’,
   },
   {
-    id: 'fobie',
-    label: 'Fobie e ossessioni',
+    id: ‘training-autogeno’,
+    label: ‘Training Autogeno’,
     description:
-      "Paure specifiche, rituali compulsivi, pensieri intrusivi. Con tecniche evidence-based aiutiamo a ridurre l’impatto sulla vita quotidiana.",
+      "Tecnica di rilassamento profondo che insegna a gestire stress, tensione e ansia attraverso l’auto-ipnosi. Percorsi individuali e di gruppo.",
   },
   {
-    id: 'crescita',
-    label: 'Crescita personale',
+    id: ‘crescita’,
+    label: ‘Crescita personale’,
     description:
-      'Chi non ha un "problema" ma sente di voler capirsi meglio, espandere i propri confini e vivere in modo più consapevole.',
+      ‘Per chi vuole comprendersi meglio, rafforzare le proprie risorse e costruire una vita più consapevole, anche in assenza di un disagio conclamato.’,
   },
 ];
 
