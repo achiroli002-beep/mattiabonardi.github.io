@@ -22,16 +22,18 @@ Convenzioni e vincoli di progetto per Claude Code e per chiunque lavori su quest
 
 ## Design tokens (CSS custom properties in :root)
 
+Palette: **Terra & calore** (ocra + terracotta + crema)
+
 | Token                  | Valore    | Uso |
 |------------------------|-----------|-----|
-| `--color-bg`           | #F3EFE7   | Sfondo pagina |
-| `--color-surface`      | #FBF9F4   | Card, sezioni alternate |
-| `--color-primary`      | #6E8B7B   | Verde salvia |
-| `--color-primary-deep` | #3F5347   | Titoli, footer, CTA hover |
-| `--color-accent`       | #6B8CA3   | Azzurro-ardesia, link, CTA secondari |
-| `--color-text`         | #2E2E2A   | Testo principale |
-| `--color-text-muted`   | #6A685F   | Testo secondario |
-| `--color-border`       | #E2DCD0   | Bordi, separatori |
+| `--color-bg`           | #F5F0E8   | Sfondo pagina |
+| `--color-surface`      | #FDFAF4   | Card, sezioni alternate |
+| `--color-primary`      | #8B6914   | Ocra scura |
+| `--color-primary-deep` | #5C4209   | Titoli, footer, CTA hover |
+| `--color-accent`       | #C4613A   | Terracotta, link, CTA secondari |
+| `--color-text`         | #2A2015   | Testo principale |
+| `--color-text-muted`   | #7A6D58   | Testo secondario |
+| `--color-border`       | #DDD5C4   | Bordi, separatori |
 
 **Regola**: non scrivere mai colori hardcoded fuori da `:root`. Usa sempre i token.
 

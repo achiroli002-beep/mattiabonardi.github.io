@@ -133,10 +133,10 @@ function initNav() {
    Se la foto non si carica, mostra il placeholder testuale.
 ═══════════════════════════════════════════════════════════════════ */
 function initPortraitFallback() {
-  const img   = document.querySelector('.portrait-img');
-  const frame = document.querySelector('.portrait-frame');
-  if (!img || !frame) return;
-  img.addEventListener('error', () => frame.classList.add('no-img'));
+  const img = document.querySelector('.hero-bg-img');
+  const bg  = document.querySelector('.hero-bg');
+  if (!img || !bg) return;
+  img.addEventListener('error', () => bg.classList.add('no-img'));
 }
 
 /* ═══════════════════════════════════════════════════════════════════

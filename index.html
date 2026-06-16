@@ -99,40 +99,36 @@
   ════════════════════════════════════════════════ -->
   <main id="main-content">
 
-    <!-- ─── 1. HERO ─────────────────────────────── -->
+    <!-- ─── 1. HERO — foto full-bleed con testo in sovraimpressione ── -->
     <section id="hero" class="section-hero" aria-labelledby="hero-heading">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <!-- PLACEHOLDER: frase di apertura dello psicologo -->
-          <p class="hero-eyebrow">Psicologo | [Città] &amp; Online</p>
-          <h1 id="hero-heading" class="hero-headline">
-            Uno spazio<br />
-            per ritrovarsi.
-          </h1>
-          <!-- PLACEHOLDER: sottotitolo/tagline -->
-          <p class="hero-sub">
-            Percorsi individuali e di coppia pensati per aiutarti a comprendere te stesso, alleggerire il peso e costruire una vita più autentica.
-          </p>
-          <a href="#prenota" class="btn btn-primary">Inizia il percorso</a>
-        </div>
 
-        <div class="hero-portrait">
-          <!-- PLACEHOLDER: sostituisci src con la foto reale dello psicologo -->
-          <div class="portrait-frame">
-            <img
-              src="assets/img/portrait.jpg"
-              alt="Ritratto del Dott. [Nome Cognome], psicologo"
-              width="480"
-              height="600"
-              loading="eager"
-              class="portrait-img"
-            />
-            <!-- Fallback se la foto non è ancora disponibile -->
-            <div class="portrait-placeholder" aria-hidden="true">
-              <span>Foto</span>
-            </div>
-          </div>
-        </div>
+      <!-- Sfondo: foto del dottore che copre tutta la sezione (aria-hidden: decorativo) -->
+      <div class="hero-bg" aria-hidden="true">
+        <!-- PLACEHOLDER: sostituisci src con la foto reale; formato verticale/ritratto consigliato -->
+        <img
+          src="assets/img/portrait.jpg"
+          alt=""
+          width="1200"
+          height="1600"
+          loading="eager"
+          class="hero-bg-img"
+        />
+        <div class="hero-overlay"></div>
+      </div>
+
+      <!-- Testo in sovraimpressione — in basso a sinistra su desktop -->
+      <div class="hero-content">
+        <!-- PLACEHOLDER: specializzazione e città -->
+        <p class="hero-eyebrow">Psicologo | [Città] &amp; Online</p>
+        <h1 id="hero-heading" class="hero-headline">
+          Uno spazio<br />
+          per ritrovarsi.
+        </h1>
+        <!-- PLACEHOLDER: sottotitolo/tagline -->
+        <p class="hero-sub">
+          Percorsi individuali e di coppia pensati per aiutarti a comprendere te stesso, alleggerire il peso e costruire una vita più autentica.
+        </p>
+        <a href="#prenota" class="btn-hero">Inizia il percorso</a>
       </div>
 
       <!-- Freccia scroll -->
