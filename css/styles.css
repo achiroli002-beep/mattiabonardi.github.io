@@ -528,24 +528,55 @@ section {
   margin: 0 auto var(--space-xl);
 }
 
-/* Profilo: silhouette centrale (decorativa) */
-.head-svg {
+/* L'anima: cerchio luminoso centrale che respira e svanisce ai bordi */
+.soul {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: min(42%, 320px);
+  aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  width: auto;
-  height: min(92%, 480px);
   pointer-events: none;
 }
 
-.head-line {
-  fill: none;
-  stroke: var(--color-primary);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.5;
+.soul span {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+/* Nucleo: alone caldo che sfuma fino a sparire verso l'esterno */
+.soul-core {
+  background: radial-gradient(circle closest-side,
+              rgba(196, 97, 58, 0.55) 0%,
+              rgba(196, 97, 58, 0.30) 26%,
+              rgba(139, 105, 20, 0.18) 48%,
+              rgba(139, 105, 20, 0.06) 72%,
+              rgba(139, 105, 20, 0) 100%);
+  animation: soul-breathe 6s ease-in-out infinite;
+}
+
+/* Anelli che si espandono e svaniscono dolcemente verso l'esterno */
+.soul-ring {
+  background: radial-gradient(circle closest-side,
+              rgba(196, 97, 58, 0) 54%,
+              rgba(196, 97, 58, 0.20) 72%,
+              rgba(196, 97, 58, 0) 100%);
+  opacity: 0;
+  animation: soul-emanate 7.5s ease-out infinite;
+}
+.soul-ring:nth-child(2) { animation-delay: -2.5s; }
+.soul-ring:nth-child(3) { animation-delay: -5s; }
+
+@keyframes soul-breathe {
+  0%, 100% { transform: scale(0.9);  opacity: 0.85; }
+  50%      { transform: scale(1.08); opacity: 1;    }
+}
+@keyframes soul-emanate {
+  0%   { transform: scale(0.55); opacity: 0;    }
+  18%  { opacity: 0.75; }
+  100% { transform: scale(1.9);  opacity: 0;    }
 }
 
 /* ── Condizioni fluttuanti ── */
@@ -1057,6 +1088,10 @@ body.cursor-aura-active label { cursor: none; }
   /* Condizioni fluttuanti: ferme (nessuna fluttuazione) */
   .cond-chip { animation: none !important; }
 
+  /* Anima: nucleo statico, nessuna emanazione */
+  .soul-core { animation: none !important; }
+  .soul-ring { display: none; }
+
   /* Timeline: tutto visibile subito, nessuna animazione */
   .timeline-content {
     opacity: 1 !important;
@@ -1123,12 +1158,11 @@ body.cursor-aura-active label { cursor: none; }
     margin-bottom: var(--space-lg);
   }
 
-  /* Profilo statico in alto */
-  .head-svg {
+  /* Anima statica in alto */
+  .soul {
     position: static;
     transform: none;
-    height: auto;
-    width: min(220px, 60%);
+    width: min(170px, 48%);
     margin: 0 auto var(--space-lg);
   }
 

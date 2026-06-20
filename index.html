@@ -149,25 +149,17 @@
           </p>
         </header>
 
-        <!-- Stage: profilo testa al centro, condizioni che fluttuano attorno -->
+        <!-- Stage: "anima" al centro, condizioni che fluttuano attorno -->
         <div class="mind-stage" id="mind-stage">
 
-          <!-- ── Profilo umano astratto (decorativo, aria-hidden) ──
-               I controlli accessibili sono i <button> "condizione" che
-               fluttuano attorno: aggiornano il pannello qui sotto.
-          ──────────────────────────────────────────────────────────── -->
-          <svg
-            class="head-svg"
-            id="head-svg"
-            viewBox="0 0 380 470"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path class="head-line"
-              d="M205 42 C270 46 322 78 340 130 C351 158 350 178 344 196 C340 206 350 228 366 250 C371 261 351 259 336 263 C344 273 348 281 346 289 C345 297 336 301 338 309 C342 321 352 327 346 341 C340 357 320 361 300 373 C290 379 286 400 284 416 L283 470 L74 470 C80 404 64 372 58 330 C50 280 38 250 42 210 C46 140 120 60 205 42 Z"/>
-          </svg>
+          <!-- L'anima: un cerchio luminoso che respira e svanisce
+               dolcemente verso l'esterno (decorativo, aria-hidden). -->
+          <div class="soul" aria-hidden="true">
+            <span class="soul-ring"></span>
+            <span class="soul-ring"></span>
+            <span class="soul-ring"></span>
+            <span class="soul-core"></span>
+          </div>
 
           <!-- Condizioni fluttuanti — <button> reali, iniettati da JS -->
           <div class="conditions-float" id="conditions-float" aria-label="Aree di intervento">
@@ -178,7 +170,7 @@
         <!-- Pannello testo (vuoto all'inizio; si popola in dissolvenza) -->
         <div class="mind-panel" id="mind-panel">
           <p class="mind-panel-hint" id="mind-panel-hint">
-            Passa il mouse — o usa Tab — su una delle aree che fluttuano attorno al profilo per scoprire di cosa mi occupo.
+            Passa il mouse — o usa Tab — su una delle aree che fluttuano attorno all'anima per scoprire di cosa mi occupo.
           </p>
           <article class="mind-panel-content" id="mind-panel-content" aria-live="polite" hidden>
             <h3 class="mind-panel-title" id="mind-panel-title"></h3>
