@@ -519,148 +519,116 @@ section {
   margin-inline: auto;
 }
 
-/* Stage: area posizionamento orbita */
+/* Stage: profilo al centro, condizioni fluttuanti attorno */
 .mind-stage {
   position: relative;
-  width: min(700px, 100%);
-  /* Altezza: JS la imposta in base al calcolo orbita */
-  height: 520px;
-  margin-inline: auto;
-  margin-bottom: var(--space-xl);
+  width: 100%;
+  max-width: 860px;
+  height: clamp(460px, 56vw, 580px);
+  margin: 0 auto var(--space-xl);
 }
 
-/* SVG neuronale */
-.mind-svg {
+/* Profilo: silhouette centrale (decorativa) */
+.head-svg {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(300px, 70%);
+  width: auto;
+  height: min(92%, 480px);
   pointer-events: none;
 }
 
-/* Respiro del nodo centrale */
-.svg-center-node {
-  animation: breathe 4s ease-in-out infinite;
-}
-.glow-outer {
-  animation: breathe-glow 4s ease-in-out infinite;
-}
-.glow-mid {
-  animation: breathe-glow 4s ease-in-out infinite 0.5s;
+.head-line {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.5;
 }
 
-/* Pulsanti condizioni — posizionati in JS su desktop */
-.conditions-orbit {
+/* ── Condizioni fluttuanti ── */
+.conditions-float {
   position: absolute;
   inset: 0;
-  pointer-events: none; /* il contenitore non cattura eventi, solo i button */
+  pointer-events: none; /* solo i chip catturano gli eventi */
 }
 
-.condition-btn {
+/* Ancora: posiziona (left/top da JS) e centra il chip sul punto */
+.cond-anchor {
   position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+/* Chip: il <button> che fluttua dolcemente */
+.cond-chip {
   pointer-events: auto;
-  padding: 0.45em 1em;
+  white-space: nowrap;
+  padding: 0.45em 1.05em;
   border-radius: var(--radius-full);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text);
   font-size: var(--text-xs);
   font-weight: 500;
-  white-space: nowrap;
   box-shadow: var(--shadow-soft);
-  /* transform e opacity animati da JS */
-  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
-  will-change: transform, opacity;
-  /* Centra il pulsante rispetto al punto calcolato */
-  transform: translate(-50%, -50%);
+  animation: cond-float var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+              color var(--transition-fast), background var(--transition-fast);
+  will-change: transform;
 }
 
-.condition-btn:hover,
-.condition-btn:focus-visible {
+.cond-chip:hover,
+.cond-chip:focus-visible,
+.cond-chip.is-active {
   border-color: var(--color-primary);
-  box-shadow: 0 2px 12px rgba(139, 105, 20, 0.2);
-  opacity: 1 !important; /* sovrascrive l'opacity animata */
-}
-
-/* Popover descrizione condizione */
-.condition-popover {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, calc(-50% + 20px));
-  width: min(340px, calc(100% - 2 * var(--space-sm)));
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
-  box-shadow: var(--shadow-popover);
-  z-index: 10;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--transition-base), transform var(--transition-base);
-}
-
-.condition-popover[aria-hidden="false"] {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%);
-}
-
-.popover-close {
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  color: var(--color-text-muted);
-  padding: 4px;
-  border-radius: var(--radius-sm);
-  transition: color var(--transition-fast);
-}
-.popover-close:hover { color: var(--color-text); }
-
-.popover-title {
-  font-family: var(--font-serif);
-  font-size: var(--text-lg);
-  margin-bottom: var(--space-xs);
-  padding-right: var(--space-md);
   color: var(--color-primary-deep);
+  box-shadow: 0 2px 14px rgba(139, 105, 20, 0.22);
+}
+.cond-chip.is-active {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
 }
 
-.popover-body {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  line-height: var(--leading-base);
+/* Fluttuazione morbida (dx/dy per chip impostati da JS) */
+@keyframes cond-float {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(var(--dx, 0px), var(--dy, -9px)); }
 }
 
-/* Fallback statico — sempre visibile sotto */
-.conditions-fallback {
-  border-top: 1px solid var(--color-border);
-  padding-top: var(--space-lg);
+/* ── Pannello testo (centrato sotto lo stage) ── */
+.mind-panel {
+  position: relative;
+  min-height: 120px;
+  max-width: 54ch;
+  margin-inline: auto;
   text-align: center;
 }
 
-.fallback-title {
+.mind-panel-hint {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  font-style: italic;
+  margin-inline: auto;
+}
+
+.mind-panel-content { margin-inline: auto; }
+
+.mind-panel-title {
   font-family: var(--font-serif);
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
   font-weight: 400;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-md);
+  color: var(--color-primary-deep);
+  margin-bottom: var(--space-sm);
 }
 
-.fallback-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  justify-content: center;
-}
-
-.fallback-list li {
-  padding: 0.3em 0.9em;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  font-size: var(--text-xs);
+.mind-panel-body {
   color: var(--color-text-muted);
-  background: var(--color-surface);
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
 }
 
 /* ─── 8. CHI SONO ─────────────────────────────────────────────────── */
@@ -971,23 +939,84 @@ section {
   font-size: var(--text-xs);
 }
 
+/* ─── 13b. CURSORE — aura luminosa che respira + scia ────────────── */
+/*
+  Elementi creati in JS (initCursorAura) e aggiunti al <body>.
+  Attivo solo con puntatore fine e senza prefers-reduced-motion.
+  GPU-friendly: JS anima solo translate3d; il respiro è uno scale CSS.
+*/
+.cursor-aura,
+.cursor-trail-dot,
+.cursor-core {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* Scia: punti morbidi che inseguono con ritardo */
+.cursor-trail-dot {
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  background: radial-gradient(circle closest-side,
+              rgba(196, 97, 58, 0.55) 0%, rgba(196, 97, 58, 0) 70%);
+  z-index: 100000;
+}
+
+/* Aura principale: alone ampio che respira */
+.cursor-aura {
+  width: 48px;
+  height: 48px;
+  margin: -24px 0 0 -24px;
+  z-index: 100001;
+}
+.cursor-aura::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side,
+              rgba(196, 97, 58, 0.42) 0%,
+              rgba(139, 105, 20, 0.20) 45%,
+              rgba(139, 105, 20, 0) 72%);
+  animation: cursor-breathe 3.2s ease-in-out infinite;
+}
+
+/* Nucleo preciso (hotspot) che segue esattamente il puntatore */
+.cursor-core {
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px rgba(196, 97, 58, 0.6);
+  z-index: 100002;
+}
+
+@keyframes cursor-breathe {
+  0%, 100% { transform: scale(0.76); opacity: 0.7; }
+  50%      { transform: scale(1.18); opacity: 1;   }
+}
+
+/* Nasconde gli elementi cursore finché non c'è il primo movimento / dopo l'uscita */
+.cursor-hidden .cursor-aura,
+.cursor-hidden .cursor-trail-dot,
+.cursor-hidden .cursor-core { visibility: hidden; }
+
+/* Quando l'aura è attiva, nascondi il cursore di sistema */
+body.cursor-aura-active,
+body.cursor-aura-active a,
+body.cursor-aura-active button,
+body.cursor-aura-active label { cursor: none; }
+
 /* ─── 14. ANIMAZIONI ─────────────────────────────────────────────── */
 
 /* Bounce freccia hero */
 @keyframes bounce-y {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(8px); }
-}
-
-/* Respiro nodo SVG centrale */
-@keyframes breathe {
-  0%, 100% { r: 12; opacity: 0.7; }
-  50%       { r: 14; opacity: 0.9; }
-}
-
-@keyframes breathe-glow {
-  0%, 100% { opacity: 0.08; }
-  50%       { opacity: 0.18; }
 }
 
 /* Reveal sezioni (aggiunto da IntersectionObserver) */
@@ -1025,27 +1054,8 @@ section {
     transform: none;
   }
 
-  /* Orbita: JS controlla questo, ma forziamo anche da CSS */
-  .condition-btn {
-    position: static !important;
-    transform: none !important;
-    opacity: 1 !important;
-    animation: none !important;
-  }
-
-  /* Nasconde l'orbita assoluta, mostra griglia statica */
-  .conditions-orbit {
-    position: static;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    justify-content: center;
-    pointer-events: auto;
-    padding: var(--space-md) 0;
-  }
-
-  /* Stage diventa auto height */
-  .mind-stage { height: auto !important; }
+  /* Condizioni fluttuanti: ferme (nessuna fluttuazione) */
+  .cond-chip { animation: none !important; }
 
   /* Timeline: tutto visibile subito, nessuna animazione */
   .timeline-content {
@@ -1107,53 +1117,38 @@ section {
 
   .hero-sub { margin-inline: auto; }
 
-  /* Sezione mente: layout mobile */
+  /* Sezione mente: profilo sopra, chip statici a wrap, pannello sotto */
   .mind-stage {
-    height: auto !important;
-    padding-bottom: var(--space-md);
-  }
-
-  /* Su mobile, SVG e orbit spariscono, si mostra griglia chip */
-  .mind-svg {
-    position: static;
-    transform: none;
-    width: min(200px, 60%);
-    margin-inline: auto;
+    height: auto;
     margin-bottom: var(--space-lg);
   }
 
-  .conditions-orbit {
+  /* Profilo statico in alto */
+  .head-svg {
+    position: static;
+    transform: none;
+    height: auto;
+    width: min(220px, 60%);
+    margin: 0 auto var(--space-lg);
+  }
+
+  /* Le condizioni non fluttuano: diventano chip in griglia */
+  .conditions-float {
     position: static;
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs);
     justify-content: center;
-    pointer-events: auto;
   }
 
-  .condition-btn {
-    position: static !important;
-    transform: none !important;
-    opacity: 1 !important;
-    animation: none !important;
+  .cond-anchor {
+    position: static;
+    transform: none;
   }
 
-  /* Popover diventa fisso a fondo schermo su mobile */
-  .condition-popover {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: auto;
-    transform: translateY(100%);
-    border-radius: var(--radius-md) var(--radius-md) 0 0;
-    max-width: 100%;
-    width: 100%;
-  }
+  .cond-chip { animation: none; }
 
-  .condition-popover[aria-hidden="false"] {
-    transform: translateY(0);
-  }
+  .mind-panel { min-height: 0; padding-top: var(--space-md); }
 
   /* Timeline — layout a linea laterale sinistra su mobile */
   .timeline-track {

@@ -149,96 +149,41 @@
           </p>
         </header>
 
-        <!-- Contenitore orbita (desktop) / griglia (mobile / reduced-motion) -->
-        <div class="mind-stage" id="mind-stage" role="region" aria-label="Mappa delle condizioni trattate">
+        <!-- Stage: profilo testa al centro, condizioni che fluttuano attorno -->
+        <div class="mind-stage" id="mind-stage">
 
-          <!-- SVG decorativo — neuroni / mente / anima ─────────────────
-               aria-hidden: è puramente decorativo.
-               Le animazioni CSS (respiro) si annullano con reduced-motion.
-          ──────────────────────────────────────────────────────────────── -->
+          <!-- ── Profilo umano astratto (decorativo, aria-hidden) ──
+               I controlli accessibili sono i <button> "condizione" che
+               fluttuano attorno: aggiornano il pannello qui sotto.
+          ──────────────────────────────────────────────────────────── -->
           <svg
-            class="mind-svg"
-            id="mind-svg"
-            viewBox="0 0 300 300"
+            class="head-svg"
+            id="head-svg"
+            viewBox="0 0 380 470"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
             focusable="false"
           >
-            <!-- Connessioni tra nodi -->
-            <g class="svg-connections" stroke="var(--color-primary)" stroke-width="0.8" opacity="0.4">
-              <line x1="150" y1="150" x2="90"  y2="80" />
-              <line x1="150" y1="150" x2="210" y2="75" />
-              <line x1="150" y1="150" x2="240" y2="155" />
-              <line x1="150" y1="150" x2="195" y2="230" />
-              <line x1="150" y1="150" x2="100" y2="225" />
-              <line x1="150" y1="150" x2="60"  y2="155" />
-              <!-- Connessioni secondarie tra nodi periferici -->
-              <line x1="90"  y1="80"  x2="210" y2="75"  opacity="0.25"/>
-              <line x1="210" y1="75"  x2="240" y2="155" opacity="0.25"/>
-              <line x1="240" y1="155" x2="195" y2="230" opacity="0.25"/>
-              <line x1="195" y1="230" x2="100" y2="225" opacity="0.25"/>
-              <line x1="100" y1="225" x2="60"  y2="155" opacity="0.25"/>
-              <line x1="60"  y1="155" x2="90"  y2="80"  opacity="0.25"/>
-            </g>
-
-            <!-- Nodi periferici -->
-            <g class="svg-nodes">
-              <circle cx="90"  cy="80"  r="5" fill="var(--color-primary)" opacity="0.6"/>
-              <circle cx="210" cy="75"  r="4" fill="var(--color-primary)" opacity="0.5"/>
-              <circle cx="240" cy="155" r="5" fill="var(--color-primary)" opacity="0.65"/>
-              <circle cx="195" cy="230" r="4" fill="var(--color-primary)" opacity="0.5"/>
-              <circle cx="100" cy="225" r="5" fill="var(--color-primary)" opacity="0.6"/>
-              <circle cx="60"  cy="155" r="4" fill="var(--color-accent)"  opacity="0.5"/>
-              <!-- Nodi secondari piccoli -->
-              <circle cx="130" cy="55"  r="2.5" fill="var(--color-accent)" opacity="0.4"/>
-              <circle cx="265" cy="110" r="2"   fill="var(--color-primary)" opacity="0.35"/>
-              <circle cx="250" cy="205" r="2.5" fill="var(--color-accent)" opacity="0.4"/>
-              <circle cx="45"  cy="200" r="2"   fill="var(--color-primary)" opacity="0.35"/>
-              <circle cx="50"  cy="100" r="2.5" fill="var(--color-accent)" opacity="0.4"/>
-            </g>
-
-            <!-- Nodo centrale — glow + respiro -->
-            <g class="svg-center-glow">
-              <circle cx="150" cy="150" r="32" fill="var(--color-primary)" opacity="0.08" class="glow-outer"/>
-              <circle cx="150" cy="150" r="22" fill="var(--color-primary)" opacity="0.12" class="glow-mid"/>
-            </g>
-            <circle cx="150" cy="150" r="12" fill="var(--color-primary)" opacity="0.7" class="svg-center-node"/>
-            <circle cx="150" cy="150" r="5"  fill="var(--color-bg)" class="svg-center-dot"/>
+            <path class="head-line"
+              d="M205 42 C270 46 322 78 340 130 C351 158 350 178 344 196 C340 206 350 228 366 250 C371 261 351 259 336 263 C344 273 348 281 346 289 C345 297 336 301 338 309 C342 321 352 327 346 341 C340 357 320 361 300 373 C290 379 286 400 284 416 L283 470 L74 470 C80 404 64 372 58 330 C50 280 38 250 42 210 C46 140 120 60 205 42 Z"/>
           </svg>
 
-          <!-- Pulsanti condizioni (posizionati in JS su desktop) -->
-          <!-- PLACEHOLDER: sostituisci con condizioni reali e descrizioni nel file js/main.js -->
-          <div class="conditions-orbit" id="conditions-orbit" aria-label="Condizioni trattate">
-            <!-- I pulsanti vengono iniettati da JS (funzione buildConditionButtons) -->
-          </div>
-
-          <!-- Popover per descrizione condizione -->
-          <div
-            class="condition-popover"
-            id="condition-popover"
-            role="dialog"
-            aria-modal="false"
-            aria-labelledby="popover-title"
-            aria-hidden="true"
-            tabindex="-1"
-          >
-            <button class="popover-close" id="popover-close" aria-label="Chiudi">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <h3 id="popover-title" class="popover-title"><!-- JS --></h3>
-            <p id="popover-body" class="popover-body"><!-- JS --></p>
+          <!-- Condizioni fluttuanti — <button> reali, iniettati da JS -->
+          <div class="conditions-float" id="conditions-float" aria-label="Aree di intervento">
+            <!-- JS inietta .cond-anchor > button.cond-chip -->
           </div>
         </div>
 
-        <!-- Fallback statico: sempre visibile, lista di tutte le condizioni -->
-        <div class="conditions-fallback" id="conditions-fallback" aria-label="Tutte le condizioni trattate">
-          <h3 class="fallback-title">Tutte le aree di intervento</h3>
-          <ul class="fallback-list" id="fallback-list" role="list">
-            <!-- JS inietta voci <li> qui -->
-          </ul>
+        <!-- Pannello testo (vuoto all'inizio; si popola in dissolvenza) -->
+        <div class="mind-panel" id="mind-panel">
+          <p class="mind-panel-hint" id="mind-panel-hint">
+            Passa il mouse — o usa Tab — su una delle aree che fluttuano attorno al profilo per scoprire di cosa mi occupo.
+          </p>
+          <article class="mind-panel-content" id="mind-panel-content" aria-live="polite" hidden>
+            <h3 class="mind-panel-title" id="mind-panel-title"></h3>
+            <p class="mind-panel-body" id="mind-panel-body"></p>
+          </article>
         </div>
 
       </div>

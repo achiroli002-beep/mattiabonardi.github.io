@@ -165,266 +165,96 @@ function initScrollReveal() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   4. SEZIONE MENTE / ANIMA — ORBITA CONDIZIONI
+   4. SEZIONE MENTE / ANIMA — PROFILO + CONDIZIONI FLUTTUANTI
    ─────────────────────────────────────────────────────────────────
-   Flusso logico:
-   a) buildConditionButtons() — crea i <button> e li aggiunge al DOM
-   b) buildFallbackList()     — popola la lista statica accessibile
-   c) OrbitAnimation          — classe che gestisce l'animazione
-   d) initMindSection()       — entry point, gestisce mobile/reduced-motion
+   Un profilo umano astratto (silhouette decorativa) sta al centro;
+   attorno fluttuano le condizioni come <button> reali. Hover / focus /
+   tap su una condizione la evidenzia e fa comparire la sua descrizione
+   in dissolvenza (Web Animations API) nel pannello sotto lo stage.
+   I <button> garantiscono l'accesso da tastiera (l'SVG è aria-hidden).
 ═══════════════════════════════════════════════════════════════════ */
 
-/** Crea i pulsanti condizione e li inietta nell'orbita */
-function buildConditionButtons(containerEl, onClickCallback) {
-  CONDITIONS.forEach(cond => {
+/* Posizioni (% nello stage) attorno al profilo — una per condizione,
+   nello stesso ordine dell'array CONDITIONS. */
+const COND_SPOTS = [
+  { x: 86, y: 30 }, // clinica
+  { x: 84, y: 62 }, // coppia-famiglia
+  { x: 65, y: 9  }, // sport
+  { x: 8,  y: 31 }, // mental-training
+  { x: 64, y: 90 }, // caregiver
+  { x: 33, y: 92 }, // gruppi
+  { x: 9,  y: 64 }, // training-autogeno
+  { x: 24, y: 12 }, // crescita
+];
+
+function initMindSection() {
+  const stage   = document.getElementById('mind-stage');
+  const floatW  = document.getElementById('conditions-float');
+  const hint    = document.getElementById('mind-panel-hint');
+  const content = document.getElementById('mind-panel-content');
+  const titleEl = document.getElementById('mind-panel-title');
+  const bodyEl  = document.getElementById('mind-panel-body');
+
+  if (!stage || !floatW || !content || !titleEl || !bodyEl) return;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const chips  = [];
+  let activeId = null;
+
+  /** Evidenzia la condizione e mostra la descrizione in dissolvenza */
+  function activate(id) {
+    const cond = CONDITIONS.find(c => c.id === id);
+    if (!cond || id === activeId) return;
+    activeId = id;
+
+    chips.forEach(b => b.classList.toggle('is-active', b.dataset.id === id));
+
+    titleEl.textContent = cond.label;
+    bodyEl.textContent  = cond.description;
+
+    if (hint) hint.hidden = true;
+    content.hidden = false;
+
+    /* Dissolvenza morbida — saltata con prefers-reduced-motion */
+    if (!reduce && typeof content.animate === 'function') {
+      content.animate(
+        [
+          { opacity: 0, transform: 'translateY(10px)' },
+          { opacity: 1, transform: 'none' },
+        ],
+        { duration: 460, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+      );
+    }
+  }
+
+  /* Crea i chip fluttuanti — un <button> reale per condizione */
+  CONDITIONS.forEach((cond, i) => {
+    const spot = COND_SPOTS[i] || { x: 50, y: 50 };
+
+    const anchor = document.createElement('div');
+    anchor.className = 'cond-anchor';
+    anchor.style.left = `${spot.x}%`;
+    anchor.style.top  = `${spot.y}%`;
+
     const btn = document.createElement('button');
-    btn.className   = 'condition-btn';
-    btn.type        = 'button';
+    btn.type       = 'button';
+    btn.className   = 'cond-chip';
     btn.dataset.id  = cond.id;
     btn.textContent = cond.label;
-    btn.setAttribute('aria-label', cond.label);
-    btn.addEventListener('click', () => onClickCallback(cond, btn));
-    containerEl.appendChild(btn);
-  });
-}
 
-/** Popola il fallback statico (lista chip) */
-function buildFallbackList() {
-  const list = document.getElementById('fallback-list');
-  if (!list) return;
-  CONDITIONS.forEach(cond => {
-    const li = document.createElement('li');
-    li.textContent = cond.label;
-    list.appendChild(li);
-  });
-}
+    /* Parametri di fluttuazione organici, diversi per ogni chip */
+    btn.style.setProperty('--dur',   `${(6 + (i % 4) * 0.7).toFixed(2)}s`);
+    btn.style.setProperty('--delay', `${(-(i * 0.8)).toFixed(2)}s`);
+    btn.style.setProperty('--dy',    `${-(7 + (i % 3) * 3)}px`);
+    btn.style.setProperty('--dx',    `${(i % 2 ? 1 : -1) * (3 + (i % 3) * 2)}px`);
 
-/* ───────────────────────────────────────────────────────────────────
-   OrbitAnimation
-   ─────────────────────────────────────────────────────────────────
-   Gestisce:
-   - Calcolo posizioni su ellisse
-   - Animazione drift (leggera deriva organica)
-   - Animazione opacity (pulsazione/dissolvenza)
-   - Ciclo timer per garantire che tutte le condizioni siano visibili
-   - Pausa orbita quando il popover è aperto
-   - IntersectionObserver: avvia/ferma l'animazione se la sezione
-     è fuori dallo schermo (risparmio GPU)
-─────────────────────────────────────────────────────────────────── */
-class OrbitAnimation {
-  constructor(stageEl, buttons) {
-    this.stage   = stageEl;
-    this.buttons = Array.from(buttons);
-    this.rafId   = null;
-    this.paused  = false;
-    this.running = false;
+    btn.addEventListener('pointerenter', () => activate(cond.id));
+    btn.addEventListener('focus',        () => activate(cond.id));
+    btn.addEventListener('click',        () => activate(cond.id));
 
-    /* Ellisse di base centrata nel palcoscenico */
-    this.cx = 0.5; // centro relativo (0–1)
-    this.cy = 0.5;
-
-    /* Ogni pulsante ha un suo stato di animazione */
-    this.states = this.buttons.map((_, i) => ({
-      /* Angolo iniziale distribuito uniformemente */
-      angle:     (i / this.buttons.length) * Math.PI * 2,
-      /* Velocità angolare base (rad/ms) — molto lenta */
-      speed:     0.00018 + Math.random() * 0.00008,
-      /* Parametri drift — piccolo offset sinusoidale organico */
-      driftAmp:  6 + Math.random() * 8,          // px
-      driftFreq: 0.0004 + Math.random() * 0.0003,// rad/ms
-      driftPhase:Math.random() * Math.PI * 2,
-      /* Parametri opacity — pulsazione lenta */
-      opacityMin: 0.45,
-      opacityMax: 1,
-      opacityFreq:0.0006 + Math.random() * 0.0004,
-      opacityPhase:Math.random() * Math.PI * 2,
-    }));
-
-    this.lastTime = null;
-    this._tick    = this._tick.bind(this);
-  }
-
-  /**
-   * Calcola dimensioni ellisse in base al container.
-   * Chiamato ogni frame per adattarsi al resize.
-   */
-  _getEllipse() {
-    const w = this.stage.offsetWidth;
-    const h = this.stage.offsetHeight;
-    return {
-      cx: w * this.cx,
-      cy: h * this.cy,
-      rx: w * 0.40, // semiasse orizzontale
-      ry: h * 0.38, // semiasse verticale
-    };
-  }
-
-  _tick(timestamp) {
-    if (!this.running) return;
-
-    const dt = this.lastTime ? Math.min(timestamp - this.lastTime, 50) : 0;
-    this.lastTime = timestamp;
-
-    if (!this.paused) {
-      const { cx, cy, rx, ry } = this._getEllipse();
-
-      this.buttons.forEach((btn, i) => {
-        const s = this.states[i];
-        s.angle += s.speed * dt;
-
-        /* Posizione ellisse + drift sinusoidale */
-        const t   = timestamp;
-        const x   = cx + rx * Math.cos(s.angle) + s.driftAmp * Math.sin(s.driftFreq * t + s.driftPhase);
-        const y   = cy + ry * Math.sin(s.angle) + s.driftAmp * Math.cos(s.driftFreq * t + s.driftPhase + 1);
-
-        /* Opacity: pulsazione tra min e max */
-        const opRange = s.opacityMax - s.opacityMin;
-        const opacity = s.opacityMin + opRange * (0.5 + 0.5 * Math.sin(s.opacityFreq * t + s.opacityPhase));
-
-        /* Applica con transform + opacity (GPU-friendly, niente reflow) */
-        btn.style.left    = `${x}px`;
-        btn.style.top     = `${y}px`;
-        btn.style.opacity = opacity.toFixed(3);
-      });
-    }
-
-    this.rafId = requestAnimationFrame(this._tick);
-  }
-
-  start() {
-    if (this.running) return;
-    this.running  = true;
-    this.lastTime = null;
-    this.rafId    = requestAnimationFrame(this._tick);
-  }
-
-  stop() {
-    this.running = false;
-    if (this.rafId) {
-      cancelAnimationFrame(this.rafId);
-      this.rafId = null;
-    }
-  }
-
-  pause()  { this.paused = true; }
-  resume() { this.paused = false; }
-}
-
-/* ───────────────────────────────────────────────────────────────────
-   Popover — gestione accessibile
-─────────────────────────────────────────────────────────────────── */
-class ConditionPopover {
-  constructor(popoverEl, orbit) {
-    this.el     = popoverEl;
-    this.orbit  = orbit; // riferimento all'OrbitAnimation per pause/resume
-    this.active = null;  // pulsante attualmente attivo
-
-    this.titleEl = document.getElementById('popover-title');
-    this.bodyEl  = document.getElementById('popover-body');
-    this.closeBtn = document.getElementById('popover-close');
-
-    this.closeBtn?.addEventListener('click', () => this.close());
-
-    /* Chiudi con Esc */
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && !this.isHidden()) this.close();
-    });
-
-    /* Chiudi con click esterno */
-    document.addEventListener('pointerdown', e => {
-      if (!this.isHidden() && !this.el.contains(e.target) && e.target !== this.active) {
-        this.close();
-      }
-    });
-  }
-
-  isHidden() {
-    return this.el.getAttribute('aria-hidden') === 'true';
-  }
-
-  open(condition, triggerBtn) {
-    if (this.titleEl) this.titleEl.textContent = condition.label;
-    if (this.bodyEl)  this.bodyEl.textContent  = condition.description;
-    this.el.setAttribute('aria-hidden', 'false');
-    this.active = triggerBtn;
-    this.orbit?.pause();
-    /* Sposta il focus nel popover */
-    requestAnimationFrame(() => this.el.focus());
-  }
-
-  close() {
-    this.el.setAttribute('aria-hidden', 'true');
-    this.orbit?.resume();
-    /* Restituisci il focus al pulsante che ha aperto il popover */
-    this.active?.focus();
-    this.active = null;
-  }
-}
-
-/* ───────────────────────────────────────────────────────────────────
-   initMindSection — entry point
-─────────────────────────────────────────────────────────────────── */
-function initMindSection() {
-  const section    = document.getElementById('mind-map');
-  const stage      = document.getElementById('mind-stage');
-  const orbitEl    = document.getElementById('conditions-orbit');
-  const popoverEl  = document.getElementById('condition-popover');
-
-  if (!section || !stage || !orbitEl || !popoverEl) return;
-
-  /* Popola sempre la lista statica fallback */
-  buildFallbackList();
-
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isMobile       = () => window.innerWidth < 768;
-
-  /* Su mobile o reduced-motion: layout statico, niente orbit */
-  if (prefersReduced || isMobile()) {
-    buildConditionButtons(orbitEl, (cond, btn) => {
-      /* Crea popover semplificato anche in modalità statica */
-      const popover = new ConditionPopover(popoverEl, null);
-      popover.open(cond, btn);
-    });
-    return;
-  }
-
-  /* ── Desktop, animazione completa ── */
-  let orbit   = null;
-  let popover = null;
-
-  function setup() {
-    /* Crea pulsanti */
-    buildConditionButtons(orbitEl, (cond, btn) => {
-      popover.open(cond, btn);
-    });
-
-    const buttons = orbitEl.querySelectorAll('.condition-btn');
-    orbit   = new OrbitAnimation(stage, buttons);
-    popover = new ConditionPopover(popoverEl, orbit);
-
-    /*
-     * IntersectionObserver: avvia l'animazione solo quando la sezione
-     * è visibile almeno al 10% — risparmia RAF quando l'utente è
-     * in un'altra parte della pagina.
-     */
-    const visibilityObserver = new IntersectionObserver(
-      ([entry]) => entry.isIntersecting ? orbit.start() : orbit.stop(),
-      { threshold: 0.1 }
-    );
-    visibilityObserver.observe(section);
-  }
-
-  setup();
-
-  /* Rileva resize: se si passa a mobile, ricrea in modalità statica */
-  const mq = window.matchMedia('(max-width: 767px)');
-  mq.addEventListener('change', e => {
-    if (e.matches) {
-      orbit?.stop();
-      /* Non è necessario ricostruire il DOM: il CSS mobile li mostra già statici */
-    } else {
-      orbit?.start();
-    }
+    anchor.appendChild(btn);
+    floatW.appendChild(anchor);
+    chips.push(btn);
   });
 }
 
@@ -514,6 +344,81 @@ function initFooterYear() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   7. CURSORE — aura luminosa che respira + scia
+   ─────────────────────────────────────────────────────────────────
+   - Un nucleo preciso segue esattamente il puntatore (hotspot).
+   - Un'aura morbida lo insegue con leggero ritardo e "respira" (scale
+     CSS indipendente dalla posizione → niente conflitti col transform).
+   - Alcuni punti formano una scia che insegue a catena (effetto cometa).
+   Attivo solo con puntatore fine e senza prefers-reduced-motion; anima
+   esclusivamente translate3d/opacity (GPU-friendly).
+═══════════════════════════════════════════════════════════════════ */
+function initCursorAura() {
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const reduce      = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!finePointer || reduce) return;
+
+  const TRAIL = 6;
+  const trail = [];
+  for (let i = 0; i < TRAIL; i++) {
+    const el = document.createElement('div');
+    el.className = 'cursor-trail-dot';
+    el.style.opacity = String(0.45 * (1 - i / TRAIL));
+    document.body.appendChild(el);
+    trail.push({ el, x: -100, y: -100 });
+  }
+
+  const aura = document.createElement('div');
+  aura.className = 'cursor-aura';
+  const core = document.createElement('div');
+  core.className = 'cursor-core';
+  document.body.append(aura, core);
+
+  document.body.classList.add('cursor-aura-active', 'cursor-hidden');
+
+  let mx = -100, my = -100; // posizione puntatore
+  let ax = -100, ay = -100; // posizione aura (smussata)
+
+  const lerp = (a, b, n) => a + (b - a) * n;
+
+  window.addEventListener('pointermove', e => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    mx = e.clientX;
+    my = e.clientY;
+    document.body.classList.remove('cursor-hidden');
+    core.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+  }, { passive: true });
+
+  /* Nascondi quando il puntatore lascia la finestra */
+  document.addEventListener('pointerleave', () => {
+    document.body.classList.add('cursor-hidden');
+  });
+  window.addEventListener('blur', () => {
+    document.body.classList.add('cursor-hidden');
+  });
+
+  function frame() {
+    /* L'aura insegue con ritardo morbido */
+    ax = lerp(ax, mx, 0.2);
+    ay = lerp(ay, my, 0.2);
+    aura.style.transform = `translate3d(${ax}px, ${ay}px, 0)`;
+
+    /* La scia: ogni punto insegue il precedente (catena) */
+    let px = ax, py = ay;
+    for (let i = 0; i < trail.length; i++) {
+      const t = trail[i];
+      t.x = lerp(t.x, px, 0.34);
+      t.y = lerp(t.y, py, 0.34);
+      t.el.style.transform = `translate3d(${t.x}px, ${t.y}px, 0)`;
+      px = t.x;
+      py = t.y;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -523,4 +428,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initMindSection();
   initMethodTimeline();
   initFooterYear();
+  initCursorAura();
 });
